@@ -28,7 +28,7 @@ class Queue<T> implements Iterable<T> {
 
   public pop(): T {
     if (!this.first) {
-      throw new Error("Queue is empty");
+      throw new Error('Queue is empty');
     }
 
     const first = this.first;
@@ -47,7 +47,7 @@ class Queue<T> implements Iterable<T> {
         const value = current.value;
         current = current.next;
         return { value, done: false };
-      }
+      },
     };
   }
   private _push(item: T): Queue<T> {
@@ -55,14 +55,14 @@ class Queue<T> implements Iterable<T> {
     if (!this.first) {
       this.first = {
         next: null,
-        value: item
+        value: item,
       };
       this.last = this.first;
       return this;
     }
     const newItem = {
       next: null,
-      value: item
+      value: item,
     };
     this.last!.next = newItem;
     this.last = newItem;
