@@ -19,28 +19,9 @@ class Queue<T> implements Iterable<T> {
     }
   }
 
-  private _push(item: T): Queue<T> {
-    this.length++;
-    if (!this.first) {
-      this.first = {
-        value: item,
-        next: null
-      };
-      this.last = this.first;
-      return this;
-    }
-    const newItem = {
-      value: item,
-      next: null
-    };
-    this.last!.next = newItem;
-    this.last = newItem;
-    return this;
-  }
-
   public push(...items: T[]): Queue<T> {
-    for (let i = 0; i < items.length; i++) {
-      this._push(items[i]);
+    for (const item of items) {
+      this._push(item);
     }
     return this;
   }
@@ -56,7 +37,7 @@ class Queue<T> implements Iterable<T> {
     return first.value;
   }
 
-  [Symbol.iterator]() {
+  public [Symbol.iterator]() {
     let current = this.first;
     return {
       next() {
@@ -68,6 +49,24 @@ class Queue<T> implements Iterable<T> {
         return { value, done: false };
       }
     };
+  }
+  private _push(item: T): Queue<T> {
+    this.length++;
+    if (!this.first) {
+      this.first = {
+        next: null,
+        value: item
+      };
+      this.last = this.first;
+      return this;
+    }
+    const newItem = {
+      next: null,
+      value: item
+    };
+    this.last!.next = newItem;
+    this.last = newItem;
+    return this;
   }
 }
 
